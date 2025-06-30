@@ -19,11 +19,11 @@ app.use(cors({
   credentials:true
 }));
 app.use(express.json());
-app.use('/',(req,res)=>res.redirect("/api-docs"))
 app.use('/api/cars', carRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 app.use('/uploads', express.static(path.join(process.cwd(), 'public/uploads')));
+app.use('/',(req,res)=>res.redirect("/api-docs"))
 
 mongoose.connect(`mongodb+srv://sarabjit:${process.env.DB_PASSWORD}@cluster0.dxmxozp.mongodb.net/`)
   .then(() => console.log('MongoDB Connected'))
