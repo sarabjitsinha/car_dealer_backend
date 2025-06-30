@@ -15,7 +15,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin:"http://localhost:5173",
+  origin:"https://usedcardealer.netlify.app/",
   credentials:true
 }));
 app.use(express.json());
@@ -23,17 +23,17 @@ app.use('/api/cars', carRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 app.use('/uploads', express.static(path.join(process.cwd(), 'public/uploads')));
-// app.use('/',(req,res)=>res.redirect("/api-docs"))
+app.use('/',(req,res)=>res.redirect("/api-docs"))
 
-app.get('/', (req, res) => {
-  // Only redirect if it's a browser request
-  const acceptsHtml = req.headers.accept?.includes('text/html');
-  if (acceptsHtml) {
-    res.redirect('/api-docs');
-  } else {
-    res.status(404).json({ message: 'Not found' });
-  }
-});
+// Only redirect if it's a browser request
+// app.get('/', (req, res) => {
+//   const acceptsHtml = req.headers.accept?.includes('text/html');
+//   if (acceptsHtml) {
+//     res.redirect('/api-docs');
+//   } else {
+//     res.status(404).json({ message: 'Not found' });
+//   }
+// });
 
 mongoose.connect(`mongodb+srv://sarabjit:${process.env.DB_PASSWORD}@cluster0.dxmxozp.mongodb.net/`)
   .then(() => console.log('MongoDB Connected'))
