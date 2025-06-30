@@ -22,4 +22,4 @@ const carSchema = new mongoose.Schema({
   image: { type: String, required: false }, // URL to uploaded image
 }, { timestamps: true });
 
-const Car = mongoose.model("Car", carSchema);
+export default   mongoose.model("Car", carSchema);
