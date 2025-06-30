@@ -19,6 +19,7 @@ app.use(cors({
   credentials:true
 }));
 app.use(express.json());
+app.use('/',(req,res)=>res.redirect("/api-docs"))
 app.use('/api/cars', carRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
