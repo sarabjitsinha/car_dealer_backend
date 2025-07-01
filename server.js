@@ -14,6 +14,7 @@ const swaggerDoc = JSON.parse(await readFile(new URL('./swagger.json', import.me
 dotenv.config();
 const app = express();
 
+app.set("trust proxy",true)
 app.use(cors({
   origin:"https://usedcardealer.netlify.app",
   credentials:true,
@@ -25,15 +26,6 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 app.use('/uploads', express.static(path.join(process.cwd(), 'public/uploads')));
 app.use('/',(req,res)=>res.redirect("/api-docs"))
 
-// Only redirect if it's a browser request
-// app.get('/', (req, res) => {
-//   const acceptsHtml = req.headers.accept?.includes('text/html');
-//   if (acceptsHtml) {
-//     res.redirect('/api-docs');
-//   } else {
-//     res.status(404).json({ message: 'Not found' });
-//   }
-// });
 
 mongoose.connect(`mongodb+srv://sarabjit:${process.env.DB_PASSWORD}@cluster0.dxmxozp.mongodb.net/`)
   .then(() => console.log('MongoDB Connected'))
